@@ -17,7 +17,7 @@ DISK=$(lsblk -d -n -o NAME | grep -E '^(sda|vda)$')
 wget https://download.mikrotik.com/routeros/7.19.4/chr-7.19.4.img.zip -O chr.img.zip  && \
 gunzip -c chr.img.zip > chr.img  && \
 apt-get update && \
-apt install -y qemu-utils pv && \
+DEBIAN_FRONTEND=noninteractive apt install -y qemu-utils pv && \
 qemu-img convert chr.img -O qcow2 chr.qcow2 && \
 qemu-img resize chr.qcow2 1073741824 && \
 modprobe nbd && \
