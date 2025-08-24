@@ -1,7 +1,18 @@
 #!/bin/bash
+PASSWORD=$1
+SERVICE=$2
+
+VALID=("Mikrotik" "mikrotik" "Mikrotik CHR")
+
+
+if [[ ! " ${VALID[@]} " =~ " ${SERVICE} " ]]; then
+    echo "None Mikrotik"
+    exit 1
+fi
+
+
 interface=$(ls /sys/class/net | head -n 1)
 DISK=$(lsblk -d -n -o NAME | grep -E '^(sda|vda)$')
-PASSWORD=$1
 
 wget https://download.mikrotik.com/routeros/7.19.4/chr-7.19.4.img.zip -O chr.img.zip  && \
 gunzip -c chr.img.zip > chr.img  && \
